@@ -80,50 +80,61 @@ class HomeTab extends StatelessWidget {
         // popular foods
         const Text("Popular Food", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
-        SizedBox(
-          height: 180,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: demoFoods.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (ctx, i) {
-              final item = demoFoods[i];
-              return GestureDetector(
-                onTap: () => Navigator.push(
-                  ctx,
-                  MaterialPageRoute(builder: (_) => FoodDetailPage(item: item)),
-                ),
-                child: Container(
-                  width: 140,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: Colors.white,
-                    boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                        child: Image.asset(item.image, height: 100, width: double.infinity, fit: BoxFit.cover),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(item.title, maxLines: 1, overflow: TextOverflow.ellipsis),
-                            Text("\$${item.price}", style: const TextStyle(color: coral, fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
+        GridView.builder(
+          shrinkWrap: true, // để GridView cao vừa đủ
+          physics: const NeverScrollableScrollPhysics(), // tránh conflict cuộn
+          itemCount: demoFoods.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,        // số cột
+            mainAxisSpacing: 12,      // khoảng cách dọc
+            crossAxisSpacing: 12,     // khoảng cách ngang
+            childAspectRatio: 3 / 4,  // tỉ lệ khung (rộng : cao)
           ),
+          itemBuilder: (ctx, i) {
+            final item = demoFoods[i];
+            return GestureDetector(
+              onTap: () => Navigator.push(
+                ctx,
+                MaterialPageRoute(builder: (_) => FoodDetailPage(item: item)),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.white,
+                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                      child: Image.asset(
+                        item.image,
+                        height: 100,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item.title, maxLines: 1, overflow: TextOverflow.ellipsis),
+                          Text(
+                            "\$${item.price}",
+                            style: const TextStyle(color: coral, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
+
       ],
     );
   }

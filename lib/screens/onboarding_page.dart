@@ -13,7 +13,6 @@ class OnboardingPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // 👇 Ảnh minh họa ở trên
               SizedBox(
                 width: 200,
                 height: 200,
@@ -23,7 +22,7 @@ class OnboardingPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Text('Welcome to Eatsy! 👋',
+              const Text('Welcome to Eatsy! 👋',
                 style: TextStyle(color: coral, fontSize: 28, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               const Text('Unlock a world of culinary delights, right at your fingertips',
